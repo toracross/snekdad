@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sylec's Sanctum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quattrocento+Sans&family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quattrocento Sans', sans-serif;
+      background: linear-gradient(to bottom, #5580B5, #6C6E7A, #B5B6CA);
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: #f8f5f2;
+      text-align: center;
+
+      /* Sparkle layer */
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 40px 40px; /* Distance between specks */
+      animation: specksMove 60s linear infinite; /* Slow movement */
+      pointer-events: none; /* Allow clicks through */
+    }
+
+    @keyframes specksMove {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-40px, -40px);
+      }
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 2rem auto 1rem;
+      object-fit: cover;
+      border: 4px solid #fff8f0;
+      display: block;
+    }
+
+    h1 {
+      margin: 0.2rem 0;
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #fffaf5;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      color: #f0e7dd;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .handwritten {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: #faeee0;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .card {
+      position: relative;
+      background: #fff8f0;
+      color: #3e2f23;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 2px solid white;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      height: 320px;
+      overflow: hidden;
+      text-align: right;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff8f0;
+      font-family: 'Playfair Display', serif;
+      z-index: 2;
+      text-align: right;
+      text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        0px -2px 0 #000,
+        -2px 0px 0 #000,
+        2px 0px 0 #000,
+        0px 2px 0 #000;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img
+      src="https://cdn.bsky.app/img/avatar/plain/did:plc:byqhyq5kcv5xhmgbfh33o56x/bafkreihis7vkm6mo4h5y5nvfcqedabw2mkxofncv5lya27xvafy5pyzs3i@jpeg"
+      alt="Profile"
+      class="profile-img"
+    />
+    <h1>Sylec</h1>
+    <p class="handwritten">Latino - Snake 🐍 - Dad</p>
+
+    <div id="link-container"></div>
+  </div>
+
+  <script>
+    fetch('/api/links')
+      .then(res => res.json())
+      .then(links => {
+        const container = document.getElementById('link-container');
+        links.forEach(link => {
+          const card = document.createElement('a');
+          card.className = 'card';
+          card.href = link.url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.innerHTML = `
+            <img src="${link.image || 'https://via.placeholder.com/600x320?text=No+Preview'}" alt="${link.title}" />
+            <div class="card-title">${link.title}</div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        document.getElementById('link-container').innerHTML = "<p style='color:#fdd;'>❌ Failed to load links</p>";
+      });
+  </script>
+</body>
+</html>
