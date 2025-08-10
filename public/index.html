@@ -18,6 +18,7 @@
       color: #f8f5f2;
       text-align: center;
       position: relative; /* Needed for ::before positioning */
+      z-index: 0;
     }
 
     /* Background image overlay */
@@ -32,6 +33,7 @@
       opacity: 0.5; /* 50% opacity */
       z-index: 0;
       pointer-events: none;
+      z-index: -1; /* Ensure it sits behind all content */
     }
 
     /* Sparkle layer (optional) */
