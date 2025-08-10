@@ -14,11 +14,14 @@ const customLinks = [
 
 // Fallback overrides for sites that block scraping or have bad OG data
 const overrides = {
-  "https://x.com/morning_mocha": {
-    title: "Morning Mocha on X",
-    image: "https://pbs.twimg.com/profile_banners/1197585706950037505/1648545232/600x200"
+  "https://www.furaffinity.net/user/lunathal": {
+    title: "Lunathal on FurAffinity",
+    image: "https://d.furaffinity.net/art/lunathal/1751468672/1751468672.lunathal_1_[mocha-wing]_-_best_friends.png"
   },
-  // Add more troublesome sites here in future without touching scraping logic
+  "https://x.com/lunathal": {
+    title: "Lunathal on X",
+    image: "https://pbs.twimg.com/profile_banners/171233398/1711756556/1500x500" 
+  }
 };
 
 async function getMetadata(url) {
