@@ -15,8 +15,12 @@ const customLinks = [
 // Fallback overrides for sites that block scraping or have bad OG data
 const overrides = {
   "https://x.com/lunathal": {
-    title: "Lunathal on X",
+    title: "Twitter",
     image: "https://pbs.twimg.com/profile_banners/171233398/1711756556/1500x500" 
+  },
+  "https://www.furaffinity.net/user/lunathal": {
+    title: "FurAffinity",
+    image: "https://i.imgur.com/UQ6Lfi4.jpeg"
   }
 };
 
